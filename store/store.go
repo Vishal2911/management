@@ -3,6 +3,7 @@ package store
 import (
 	"fmt"
 
+	"github.com/vishal2911/management/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -19,12 +20,13 @@ func (store *Postgress) NewStore() error {
 	} else {
 		store.DB = db
 	}
+
+	db.AutoMigrate(&model.School{})
 	fmt.Printf("db = %v\n", db)
 	return nil
 }
 
-
 type SoteOperations interface {
 	NewStore() error
+	CreateSchool(school model.School) *gorm.DB
 }
-
