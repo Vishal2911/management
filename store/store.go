@@ -3,6 +3,7 @@ package store
 import (
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/vishal2911/management/model"
 	"github.com/vishal2911/management/util"
 	"gorm.io/driver/postgres"
@@ -40,4 +41,6 @@ func (store *Postgress) NewStore() error {
 type SoteOperations interface {
 	NewStore() error
 	CreateUser(user *model.User) error
+	GetUsers() ([]model.User, error)
+	GetUser(uuid.UUID) (model.User, error)
 }
