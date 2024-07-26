@@ -9,6 +9,15 @@ var (
 )
 
 var (
+	ApiPackage        = "api"
+	StorePackage      = "store"
+	ControllerPackage = "controller"
+	ModelPackage      = "model"
+	UtilPackage       = "util"
+	MainPackage       = "main"
+)
+
+var (
 	Controller = "controller"
 	Store      = "store"
 	Api        = "api"
@@ -16,5 +25,7 @@ var (
 )
 
 var (
-	NewServer = "newServer"
+	NewServer = "new-server"
+	NewStore  = "new-store"
+	CreateUser= "create-user"
 )

@@ -3,6 +3,7 @@ package controller
 import (
 	"log"
 
+	"github.com/gin-gonic/gin"
 	"github.com/vishal2911/management/model"
 	"github.com/vishal2911/management/store"
 	"github.com/vishal2911/management/util"
@@ -30,4 +31,5 @@ func (s *Server) NewServer(pgstore store.Postgress) {
 
 type ServerOperations interface {
 	NewServer(pgstore store.Postgress)
+	CreateUser(ctx *gin.Context)
 }
