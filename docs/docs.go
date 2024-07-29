@@ -189,20 +189,17 @@ const docTemplate = `{
                     "$ref": "#/definitions/model.Address"
                 },
                 "created_at": {
-                    "type": "string",
-                    "example": "2024-07-27T00:00:00Z"
+                    "type": "string"
                 },
                 "created_by": {
                     "type": "string",
-                    "example": "admin"
+                    "example": "vishal"
                 },
                 "deleted_at": {
-                    "type": "string",
-                    "example": "2024-07-27T00:00:00Z"
+                    "type": "string"
                 },
                 "deleted_by": {
-                    "type": "string",
-                    "example": "admin"
+                    "type": "string"
                 },
                 "email": {
                     "type": "string",
@@ -210,7 +207,7 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                    "example": ""
                 },
                 "name": {
                     "$ref": "#/definitions/model.Name"
@@ -220,21 +217,12 @@ const docTemplate = `{
                     "example": "password"
                 },
                 "updated_at": {
-                    "type": "string",
-                    "example": "2024-07-27T00:00:00Z"
+                    "type": "string"
                 },
                 "updated_by": {
-                    "type": "string",
-                    "example": "admin"
+                    "type": "string"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "X-Token",
-            "in": "header"
         }
     }
 }`
@@ -245,8 +233,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:8000",
 	BasePath:         "/",
 	Schemes:          []string{"http", "https"},
-	Title:            "User API",
-	Description:      "API for managing school",
+	Title:            "Managment",
+	Description:      "API for managing School operations",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

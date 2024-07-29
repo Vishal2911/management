@@ -50,22 +50,19 @@ definitions:
       address:
         $ref: '#/definitions/model.Address'
       created_at:
-        example: "2024-07-27T00:00:00Z"
         type: string
       created_by:
-        example: admin
+        example: vishal
         type: string
       deleted_at:
-        example: "2024-07-27T00:00:00Z"
         type: string
       deleted_by:
-        example: admin
         type: string
       email:
         example: vishal
         type: string
       id:
-        example: 123e4567-e89b-12d3-a456-426614174000
+        example: ""
         type: string
       name:
         $ref: '#/definitions/model.Name'
@@ -73,10 +70,8 @@ definitions:
         example: password
         type: string
       updated_at:
-        example: "2024-07-27T00:00:00Z"
         type: string
       updated_by:
-        example: admin
         type: string
     required:
     - address
@@ -88,8 +83,8 @@ definitions:
 host: localhost:8000
 info:
   contact: {}
-  description: API for managing school
-  title: User API
+  description: API for managing School operations
+  title: Managment
   version: "1.0"
 paths:
   /user/{id}:
@@ -157,9 +152,4 @@ paths:
 schemes:
 - http
 - https
-securityDefinitions:
-  ApiKeyAuth:
-    in: header
-    name: X-Token
-    type: apiKey
 swagger: "2.0"

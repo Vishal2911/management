@@ -8,18 +8,18 @@ import (
 
 // User struct
 type User struct {
-	ID        uuid.UUID `gorm:"primarykey" json:"id" example:"123e4567-e89b-12d3-a456-426614174000"`
+	ID        uuid.UUID `gorm:"primarykey" json:"id"`
 	Name      Name      `gorm:"embedded" binding:"required" json:"name"`
 	Address   Address   `gorm:"embedded" binding:"required" json:"address"`
 	Active    bool      `json:"active" example:"true"`
-	CreatedBy string    `json:"created_by" binding:"required"  example:"admin"`
+	CreatedBy string    `json:"created_by" binding:"required"  example:"vishal"`
 	Email     string    `json:"email" binding:"required" gorm:"unique;not null" example:"vishal"`
 	Password  string    `json:"password" binding:"required" gorm:"not null"  example:"password"`
-	CreatedAt time.Time `json:"created_at" example:"2024-07-27T00:00:00Z"`
-	UpdatedBy string    `json:"updated_by"  example:"admin"`
-	UpdatedAt time.Time `json:"updated_at" example:"2024-07-27T00:00:00Z"`
-	DeletedBy string    `json:"deleted_by" example:"admin"`
-	DeletedAt time.Time `json:"deleted_at" example:"2024-07-27T00:00:00Z"`
+	CreatedAt time.Time `json:"created_at" `
+	UpdatedBy string    `json:"updated_by" `
+	UpdatedAt time.Time `json:"updated_at" `
+	DeletedBy string    `json:"deleted_by" `
+	DeletedAt time.Time `json:"deleted_at" `
 }
 
 type Name struct {

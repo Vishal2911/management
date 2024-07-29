@@ -5,8 +5,8 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/vishal2911/management/controller"
-	_ "github.com/vishal2911/management/docs"
 	"github.com/vishal2911/management/store"
+	_ "github.com/vishal2911/management/docs"
 )
 
 type ApiRouts struct {

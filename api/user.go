@@ -17,6 +17,7 @@ func (api ApiRouts) UserRouts(routes *gin.Engine) {
 
 }
 
+
 // Handler to create a user
 // @router /user/create [post]
 // @summary Create a user
@@ -30,6 +31,7 @@ func (api ApiRouts) CreateUser(ctx *gin.Context) {
 	util.Log(model.LogLevelInfo, model.ApiPackage, model.CreateUser, "creating new user", nil)
 	api.Server.CreateUser(ctx)
 }
+
 
 // Handler to get a user by ID
 // @router /user/{id} [get]

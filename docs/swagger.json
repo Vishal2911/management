@@ -5,8 +5,8 @@
     ],
     "swagger": "2.0",
     "info": {
-        "description": "API for managing school",
-        "title": "User API",
+        "description": "API for managing School operations",
+        "title": "Managment",
         "contact": {},
         "version": "1.0"
     },
@@ -187,20 +187,17 @@
                     "$ref": "#/definitions/model.Address"
                 },
                 "created_at": {
-                    "type": "string",
-                    "example": "2024-07-27T00:00:00Z"
+                    "type": "string"
                 },
                 "created_by": {
                     "type": "string",
-                    "example": "admin"
+                    "example": "vishal"
                 },
                 "deleted_at": {
-                    "type": "string",
-                    "example": "2024-07-27T00:00:00Z"
+                    "type": "string"
                 },
                 "deleted_by": {
-                    "type": "string",
-                    "example": "admin"
+                    "type": "string"
                 },
                 "email": {
                     "type": "string",
@@ -208,7 +205,7 @@
                 },
                 "id": {
                     "type": "string",
-                    "example": "123e4567-e89b-12d3-a456-426614174000"
+                    "example": ""
                 },
                 "name": {
                     "$ref": "#/definitions/model.Name"
@@ -218,21 +215,12 @@
                     "example": "password"
                 },
                 "updated_at": {
-                    "type": "string",
-                    "example": "2024-07-27T00:00:00Z"
+                    "type": "string"
                 },
                 "updated_by": {
-                    "type": "string",
-                    "example": "admin"
+                    "type": "string"
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "X-Token",
-            "in": "header"
         }
     }
 }
