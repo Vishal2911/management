@@ -6,8 +6,12 @@ import (
 	"github.com/vishal2911/management/controller"
 )
 
-
-
+// @title Managment
+// @version 1.0
+// @description API for managing School operations
+// @host localhost:8000
+// @BasePath /
+// @schemes http https
 func main() {
 	api := api.ApiRouts{}
 	controller := controller.Server{}
