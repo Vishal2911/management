@@ -7,15 +7,7 @@ import (
 )
 
 
-// @title User API
-// @version 1.0
-// @description API for managing school
-// @host localhost:8000
-// @BasePath /
-// @schemes http https
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
-// @name X-Token
+
 func main() {
 	api := api.ApiRouts{}
 	controller := controller.Server{}
