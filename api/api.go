@@ -5,15 +5,15 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/vishal2911/management/controller"
-	"github.com/vishal2911/management/store"
 	_ "github.com/vishal2911/management/docs"
+	"github.com/vishal2911/management/store"
 )
 
-type ApiRouts struct {
+type APIRoutes struct {
 	Server controller.ServerOperations
 }
 
-func (api *ApiRouts) StartApp(router *gin.Engine, server controller.Server) {
+func (api *APIRoutes) StartApp(router *gin.Engine, server controller.Server) {
 	api.Server = &server
 	api.Server.NewServer(store.Postgress{})
 

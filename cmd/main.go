@@ -13,11 +13,10 @@ import (
 // @BasePath /
 // @schemes http https
 func main() {
-	api := api.ApiRouts{}
+	api := api.APIRoutes{}
 	controller := controller.Server{}
-	routes:= gin.Default()
-	api.StartApp(routes , controller)
-
+	routes := gin.Default()
+	api.StartApp(routes, controller)
 
 	routes.Run(":8000")
 	// fmt.Printf("main server = %v\n", api)

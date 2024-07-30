@@ -2,8 +2,10 @@ package util
 
 import (
 	"flag"
+	"net/url"
 	"os"
 
+	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"github.com/vishal2911/management/model"
 )
@@ -64,4 +66,24 @@ func Log(logLevel, packageLevel, functionName string, message, paramerer interfa
 			Logger.Infof("packageLevel: %s, functionName: %s, message: %v\n", packageLevel, functionName, message)
 		}
 	}
+}
+
+// ConvertQueryParams converts url.Values to map[string]interface{}
+func ConvertQueryParams(queryParams url.Values) map[string]interface{} {
+	result := make(map[string]interface{})
+
+	for key, values := range queryParams {
+		if key == "id" {
+			uuid, _ := uuid.Parse(values[0])
+			result[key] = uuid
+			continue
+		}
+		if len(values) == 1 {
+			result[key] = values[0] // single value, add as string
+		} else {
+			result[key] = values // multiple values, add as []string
+		}
+	}
+
+	return result
 }

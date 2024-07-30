@@ -84,6 +84,212 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Delete a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/user/filter": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get all users based on given filters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "password",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "active",
+                        "name": "active",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "created_by",
+                        "name": "created_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "updated_by",
+                        "name": "updated_by",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "first_name",
+                        "name": "first_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "middle_name",
+                        "name": "middle_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "last_name",
+                        "name": "last_name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "lane",
+                        "name": "lane",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "village",
+                        "name": "village",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "city",
+                        "name": "city",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "district",
+                        "name": "district",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "pincode",
+                        "name": "pincode",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "state",
+                        "name": "state",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "start date",
+                        "name": "start_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "end date",
+                        "name": "end_date",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default: 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Number of results per page (default: 10)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.User"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User object",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.User"
+                        }
+                    }
+                }
+            }
+        },
         "/user/{id}": {
             "get": {
                 "produces": [
@@ -114,79 +320,28 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "model.Address": {
-            "type": "object",
-            "required": [
-                "city",
-                "district",
-                "pincode",
-                "state"
-            ],
-            "properties": {
-                "city": {
-                    "type": "string",
-                    "example": "Metropolis"
-                },
-                "district": {
-                    "type": "string",
-                    "example": "Central"
-                },
-                "lane": {
-                    "type": "string",
-                    "example": "1234 Elm St"
-                },
-                "pincode": {
-                    "type": "integer",
-                    "example": 123456
-                },
-                "state": {
-                    "type": "string",
-                    "example": "NY"
-                },
-                "village": {
-                    "type": "string",
-                    "example": "Springfield"
-                }
-            }
-        },
-        "model.Name": {
-            "type": "object",
-            "required": [
-                "first_name",
-                "last_name",
-                "middle_name"
-            ],
-            "properties": {
-                "first_name": {
-                    "type": "string",
-                    "example": "John"
-                },
-                "last_name": {
-                    "type": "string",
-                    "example": "Smith"
-                },
-                "middle_name": {
-                    "type": "string",
-                    "example": "Doe"
-                }
-            }
-        },
         "model.User": {
             "type": "object",
             "required": [
-                "address",
+                "city",
                 "created_by",
+                "district",
                 "email",
-                "name",
-                "password"
+                "first_name",
+                "last_name",
+                "middle_name",
+                "password",
+                "pincode",
+                "state"
             ],
             "properties": {
                 "active": {
                     "type": "boolean",
                     "example": true
                 },
-                "address": {
-                    "$ref": "#/definitions/model.Address"
+                "city": {
+                    "type": "string",
+                    "example": "Metropolis"
                 },
                 "created_at": {
                     "type": "string"
@@ -201,26 +356,54 @@ const docTemplate = `{
                 "deleted_by": {
                     "type": "string"
                 },
+                "district": {
+                    "type": "string",
+                    "example": "Central"
+                },
                 "email": {
                     "type": "string",
                     "example": "vishal"
                 },
-                "id": {
+                "first_name": {
                     "type": "string",
-                    "example": ""
+                    "example": "John"
                 },
-                "name": {
-                    "$ref": "#/definitions/model.Name"
+                "id": {
+                    "type": "string"
+                },
+                "lane": {
+                    "type": "string",
+                    "example": "1234 Elm St"
+                },
+                "last_name": {
+                    "type": "string",
+                    "example": "Smith"
+                },
+                "middle_name": {
+                    "type": "string",
+                    "example": "Doe"
                 },
                 "password": {
                     "type": "string",
                     "example": "password"
+                },
+                "pincode": {
+                    "type": "integer",
+                    "example": 123456
+                },
+                "state": {
+                    "type": "string",
+                    "example": "NY"
                 },
                 "updated_at": {
                     "type": "string"
                 },
                 "updated_by": {
                     "type": "string"
+                },
+                "village": {
+                    "type": "string",
+                    "example": "Springfield"
                 }
             }
         }
