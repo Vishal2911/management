@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 var (
 	LogLevel        = "log-level"
 	LogLevelInfo    = "info"
@@ -17,6 +19,14 @@ var (
 	MainPackage       = "main"
 )
 
+
+
+var (
+	TokenExpiration = time.Hour * 24
+)
+
+var SecretKey = []byte("managment-secreat-key")
+
 var (
 	Controller = "controller"
 	Store      = "store"
@@ -30,10 +40,18 @@ var (
 
 	CreateUser      = "create-user"
 	GetUser         = "get-user"
+	SignUP          = "sign-up"
+	SignIn          = "sign-in"
 	GetUsers        = "get-users"
 	GetUserByFilter = "get-user-by-filter"
 	UpdateUser      = "update-user"
 	DeleteUser      = "delete-user"
+
+
+	AuthMiddleware         = "AuthMiddleware"
+	AuthMiddlewareComplete = "AuthMiddlewareComplete"
+	SetLimitAndPage        = "setLimitAndPag e"
+	SetDateRangeFilter     = "setDateRangeFilter"
 )
 
 // General
@@ -46,11 +64,20 @@ var (
 
 	Authorization = "X-Token"
 
-	DSN = "host=localhost user=iot password=iot dbname=homeautomation port=5432 sslmode=disable"
+	DNS = "host=localhost user=vishal password=password dbname=manage port=5432 sslmode=disable"
 
 	DataPerPage = "limit"
 	PageNumber  = "page"
 	StartDate   = "start_date"
 	EndDate     = "end_date"
 	TimeLayout  = "2006-01-02 15:04:05.000 -0700"
+)
+
+// user type
+var (
+	HomeAutomationOwner = "HomeAutomationOwner"
+	SuperAdminUser      = "superAdmin"
+	AdminUser           = "Admin"
+	NormalUser          = "User"
+	UserTypes           = []string{"HomeAutomationOwner", "superAdmin", "Admin", "User"}
 )

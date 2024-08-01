@@ -46,4 +46,6 @@ type SoteOperations interface {
 	GetUserByFilter(filter map[string]interface{}) ([]model.User, error)
 	UpdateUser(user *model.User) error
 	DeleteUser(userID string) error
+	SingIn(userSignIn model.UserSignIn) (*model.User, error)
+	SignUp(user *model.User) error
 }

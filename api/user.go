@@ -10,12 +10,14 @@ func (api APIRoutes) UserRouts(routes *gin.Engine) {
 	// Define routes
 	group := routes.Group("user")
 	{
-		group.POST("/create", api.CreateUser)
-		group.GET("/:id", api.GetUser)
-		group.GET("/all", api.GetUsers)
+		group.POST("/create", api.AuthMiddlewareComplete(), api.CreateUser)
+		group.GET("/:id", api.AuthMiddlewareComplete(), api.GetUser)
+		group.GET("/all", api.AuthMiddlewareComplete(), api.GetUsers)
+		group.POST("/signup", api.SignUp)
+		group.POST("/signin", api.SignIn)
 		group.GET("/filter", api.GetUsersByFilter)
-		group.PUT("/update/:id", api.UpdateUser)
-		group.DELETE("/delete/:id", api.DeleteUser)
+		group.PUT("/update/:id", api.AuthMiddlewareComplete(), api.UpdateUser)
+		group.DELETE("/delete/:id", api.AuthMiddlewareComplete(), api.DeleteUser)
 	}
 
 }
@@ -41,6 +43,7 @@ func (api APIRoutes) CreateUser(ctx *gin.Context) {
 // @produce json
 // @param id path string true "User ID"
 // @success 200 {object} model.User
+// @Security ApiKeyAuth
 func (api APIRoutes) GetUser(ctx *gin.Context) {
 
 	util.Log(model.LogLevelInfo, model.ApiPackage, model.GetUser, "fetching  user", nil)
@@ -55,6 +58,7 @@ func (api APIRoutes) GetUser(ctx *gin.Context) {
 // @param page query int false "Page number (default: 1)"
 // @param limit query int false "Number of results per page (default: 10)"
 // @success 200 {array} model.User
+// @Security ApiKeyAuth
 func (api APIRoutes) GetUsers(ctx *gin.Context) {
 
 	util.Log(model.LogLevelInfo, model.ApiPackage, model.GetUsers, "fetching users", nil)
@@ -110,6 +114,34 @@ func (api APIRoutes) UpdateUser(c *gin.Context) {
 // @summary Delete a user
 // @tags users
 // @param id path string true "User ID"
+// @Security ApiKeyAuth
 func (api APIRoutes) DeleteUser(c *gin.Context) {
 	api.Server.DeleteUser(c)
+}
+
+// Handler to SignUp a user
+// @router /user/signup [post]
+// @summary SignUp a user
+// @tags users
+// @accept json
+// @produce json
+// @param user body model.User true "User object"
+// @Success 200 {string} string "Successful SignUp"
+// @failure 400 {object} model.ErrorResponse
+// @Security ApiKeyAuth
+func (api APIRoutes) SignUp(c *gin.Context) {
+	api.Server.SignUp(c)
+}
+
+// Handler to signIn a user by email and password
+// @router /user/signin [post]
+// @summary SighIn user
+// @tags users
+// @produce json
+// @param user body model.UserSignIn true "User object"
+// @Success 200 {string} string "Successful SignIn"
+// @failure 404 {object} model.ErrorResponse
+// @Security ApiKeyAuth
+func (api APIRoutes) SignIn(c *gin.Context) {
+	api.Server.SignIn(c)
 }

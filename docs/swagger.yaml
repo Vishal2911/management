@@ -1,5 +1,10 @@
 basePath: /
 definitions:
+  model.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
   model.User:
     properties:
       active:
@@ -46,6 +51,8 @@ definitions:
       state:
         example: NY
         type: string
+      type:
+        type: string
       updated_at:
         type: string
       updated_by:
@@ -64,6 +71,16 @@ definitions:
     - password
     - pincode
     - state
+    type: object
+  model.UserSignIn:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
     type: object
 host: localhost:8000
 info:
@@ -87,6 +104,8 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/model.User'
+      security:
+      - ApiKeyAuth: []
       summary: Get a user by ID
       tags:
       - users
@@ -110,6 +129,8 @@ paths:
             items:
               $ref: '#/definitions/model.User'
             type: array
+      security:
+      - ApiKeyAuth: []
       summary: Get all users
       tags:
       - users
@@ -143,6 +164,8 @@ paths:
         required: true
         type: string
       responses: {}
+      security:
+      - ApiKeyAuth: []
       summary: Delete a user
       tags:
       - users
@@ -236,7 +259,60 @@ paths:
             type: array
       security:
       - ApiKeyAuth: []
+      - ApiKeyAuth: []
       summary: Get all users based on given filters
+      tags:
+      - users
+  /user/signin:
+    post:
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UserSignIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful SignIn
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: SighIn user
+      tags:
+      - users
+  /user/signup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User object
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful SignUp
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: SignUp a user
       tags:
       - users
   /user/update/{id}:
@@ -264,10 +340,16 @@ paths:
             $ref: '#/definitions/model.User'
       security:
       - ApiKeyAuth: []
+      - ApiKeyAuth: []
       summary: Update a user
       tags:
       - users
 schemes:
 - http
 - https
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: X-Token
+    type: apiKey
 swagger: "2.0"

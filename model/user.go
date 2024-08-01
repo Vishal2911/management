@@ -27,4 +27,11 @@ type User struct {
 	District   string    `json:"district" binding:"required" example:"Central"`
 	Pincode    int       `json:"pincode" binding:"required" example:"123456"`
 	State      string    `json:"state" binding:"required" example:"NY"`
+	Type       string    `json:"type" gorm:"not null"`
+}
+
+// UserSignIn struct
+type UserSignIn struct {
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required"`
 }

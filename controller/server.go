@@ -39,6 +39,8 @@ type ServerOperations interface {
 	GetUserByFilter(ctx *gin.Context)
 	UpdateUser(c *gin.Context) error
 	DeleteUser(c *gin.Context) error
+	SignUp(c *gin.Context)
+	SignIn(c *gin.Context)
 
 	//
 }
