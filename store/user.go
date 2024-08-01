@@ -110,3 +110,32 @@ func (store Postgress) DeleteUser(userID string) error {
 		"successfully deleted user", nil)
 	return nil
 }
+
+func (store Postgress) SignUp(user *model.User) error {
+
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignUP, "creating user data with signup api", *user)
+	resp := store.DB.Create(user)
+	if resp.Error != nil {
+		util.Log(model.LogLevelError, model.StorePackage, model.SignUP,
+			"error while creating user data", resp.Error)
+		return fmt.Errorf("error while creating user record with signup api, err = %v", resp.Error)
+	}
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignUP,
+		"successfully created user with signup api", nil)
+	return nil
+}
+
+func (store Postgress) SingIn(userSignIn model.UserSignIn) (*model.User, error) {
+	var user model.User
+	util.Log(model.LogLevelInfo, model.StorePackage, model.SignIn,
+		"reading user data from db based on email", userSignIn)
+	resp := store.DB.Where("email = ? AND password = ?", userSignIn.Email, userSignIn.Password).First(&user)
+	if resp.Error != nil {
+		util.Log(model.LogLevelError, model.StorePackage, model.GetUser,
+			"error while reading user data", resp.Error)
+		return &user, fmt.Errorf("error while fetching user record from DB for given id, err = %v", resp.Error)
+	}
+	util.Log(model.LogLevelInfo, model.StorePackage, model.GetUser,
+		"returning user data", user)
+	return &user, nil
+}
