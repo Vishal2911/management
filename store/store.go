@@ -28,6 +28,7 @@ func (store *Postgress) NewStore() error {
 
 	err = db.AutoMigrate(
 		model.User{},
+		model.School{},
 	)
 	if err != nil {
 		util.Log(model.LogLevelError, model.StorePackage, model.NewStore, "error while running automigration", err)
@@ -48,4 +49,11 @@ type SoteOperations interface {
 	DeleteUser(userID string) error
 	SingIn(userSignIn model.UserSignIn) (*model.User, error)
 	SignUp(user *model.User) error
+
+	CreateSchool(school *model.School) error
+	GetSchools() ([]model.School, error)
+	GetSchool(uuid.UUID) (model.School, error)
+	GetSchoolByFilter(filter map[string]interface{}) ([]model.School, error)
+	UpdateSchool(school *model.School) error
+	DeleteSchool(schoolID string) error
 }
