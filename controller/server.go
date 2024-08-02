@@ -42,5 +42,11 @@ type ServerOperations interface {
 	SignUp(c *gin.Context)
 	SignIn(c *gin.Context)
 
-	//
+	// School controllers
+	CreateSchool(ctx *gin.Context)
+	GetSchool(ctx *gin.Context)
+	GetSchools(ctx *gin.Context)
+	GetSchoolByFilter(ctx *gin.Context)
+	UpdateSchool(c *gin.Context) error
+	DeleteSchool(c *gin.Context) error
 }

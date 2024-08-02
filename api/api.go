@@ -23,4 +23,7 @@ func (api *APIRoutes) StartApp(router *gin.Engine, server controller.Server) {
 	// user routs
 	api.UserRouts(router)
 
+	// school routs
+	api.SchoolRouts(router)
+
 }

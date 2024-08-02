@@ -48,6 +48,14 @@ var (
 	DeleteUser      = "delete-user"
 
 
+	CreateSchool      = "create-school"
+	GetSchool         = "get-school"
+	GetSchools        = "get-schools"
+	GetSchoolByFilter = "get-school-by-filter"
+	UpdateSchool      = "update-school"
+	DeleteSchool      = "delete-school"
+
+
 	AuthMiddleware         = "AuthMiddleware"
 	AuthMiddlewareComplete = "AuthMiddlewareComplete"
 	SetLimitAndPage        = "setLimitAndPag e"

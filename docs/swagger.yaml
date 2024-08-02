@@ -5,6 +5,69 @@ definitions:
       error:
         type: string
     type: object
+  model.School:
+    properties:
+      active:
+        example: true
+        type: boolean
+      admin_id:
+        type: string
+      board_type:
+        type: string
+      city:
+        example: Metropolis
+        type: string
+      class_up_to:
+        type: integer
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      director_id:
+        type: string
+      district:
+        example: Central
+        type: string
+      domain:
+        example: vishal
+        type: string
+      hostel_id:
+        type: string
+      id:
+        type: string
+      lane:
+        example: 1234 Elm St
+        type: string
+      pincode:
+        example: 123456
+        type: integer
+      principle_id:
+        type: string
+      state:
+        example: NY
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+      village:
+        example: Springfield
+        type: string
+    required:
+    - active
+    - city
+    - created_by
+    - director_id
+    - district
+    - domain
+    - pincode
+    - state
+    type: object
   model.User:
     properties:
       active:
@@ -89,6 +152,209 @@ info:
   title: Managment
   version: "1.0"
 paths:
+  /school/{id}:
+    get:
+      parameters:
+      - description: School ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.School'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a school by ID
+      tags:
+      - schools
+  /school/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.School'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all schools
+      tags:
+      - schools
+  /school/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: School object
+        in: body
+        name: school
+        required: true
+        schema:
+          $ref: '#/definitions/model.School'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.School'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a school
+      tags:
+      - schools
+  /school/delete/{id}:
+    delete:
+      parameters:
+      - description: School ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a school
+      tags:
+      - schools
+  /school/filter:
+    get:
+      parameters:
+      - description: email
+        in: query
+        name: domain
+        type: string
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: principle_id
+        in: query
+        name: principle_id
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: admin_id
+        in: query
+        name: admin_id
+        type: string
+      - description: director_id
+        in: query
+        name: director_id
+        type: string
+      - description: hostel_id
+        in: query
+        name: hostel_id
+        type: string
+      - description: lane
+        in: query
+        name: lane
+        type: string
+      - description: village
+        in: query
+        name: village
+        type: string
+      - description: city
+        in: query
+        name: city
+        type: string
+      - description: district
+        in: query
+        name: district
+        type: string
+      - description: pincode
+        in: query
+        name: pincode
+        type: integer
+      - description: state
+        in: query
+        name: state
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.School'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all schools based on given filters
+      tags:
+      - schools
+  /school/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: School ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: School object
+        in: body
+        name: school
+        required: true
+        schema:
+          $ref: '#/definitions/model.School'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.School'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a school
+      tags:
+      - schools
   /user/{id}:
     get:
       parameters:
@@ -259,7 +525,6 @@ paths:
             type: array
       security:
       - ApiKeyAuth: []
-      - ApiKeyAuth: []
       summary: Get all users based on given filters
       tags:
       - users
@@ -339,7 +604,6 @@ paths:
           schema:
             $ref: '#/definitions/model.User'
       security:
-      - ApiKeyAuth: []
       - ApiKeyAuth: []
       summary: Update a user
       tags:
