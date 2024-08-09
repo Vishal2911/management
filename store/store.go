@@ -29,6 +29,8 @@ func (store *Postgress) NewStore() error {
 	err = db.AutoMigrate(
 		model.User{},
 		model.School{},
+		model.Class{},
+		model.Teacher{},
 	)
 	if err != nil {
 		util.Log(model.LogLevelError, model.StorePackage, model.NewStore, "error while running automigration", err)
@@ -56,4 +58,20 @@ type SoteOperations interface {
 	GetSchoolByFilter(filter map[string]interface{}) ([]model.School, error)
 	UpdateSchool(school *model.School) error
 	DeleteSchool(schoolID string) error
+
+
+	CreateClass(class *model.Class) error
+	GetClasss() ([]model.Class, error)
+	GetClass(uuid.UUID) (model.Class, error)
+	GetClassByFilter(filter map[string]interface{}) ([]model.Class, error)
+	UpdateClass(class *model.Class) error
+	DeleteClass(classID string) error
+
+
+	CreateTeacher(teacher *model.Teacher) error
+	GetTeachers() ([]model.Teacher, error)
+	GetTeacher(uuid.UUID) (model.Teacher, error)
+	GetTeacherByFilter(filter map[string]interface{}) ([]model.Teacher, error)
+	UpdateTeacher(teacher *model.Teacher) error
+	DeleteTeacher(teacherID string) error
 }

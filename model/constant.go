@@ -60,6 +60,21 @@ var (
 	AuthMiddlewareComplete = "AuthMiddlewareComplete"
 	SetLimitAndPage        = "setLimitAndPag e"
 	SetDateRangeFilter     = "setDateRangeFilter"
+
+
+	CreateClass      = "create-class"
+	GetClass         = "get-class"
+	GetClasss        = "get-classs"
+	GetClassByFilter = "get-class-by-filter"
+	UpdateClass      = "update-class"
+	DeleteClass      = "delete-class"
+
+	CreateTeacher      = "create-teacher"
+	GetTeacher         = "get-teacher"
+	GetTeachers        = "get-teachers"
+	GetTeacherByFilter = "get-teacher-by-filter"
+	UpdateTeacher      = "update-teacher"
+	DeleteTeacher      = "delete-teacher"
 )
 
 // General

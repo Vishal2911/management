@@ -1,5 +1,45 @@
 basePath: /
 definitions:
+  model.Class:
+    properties:
+      active:
+        example: true
+        type: boolean
+      class_name:
+        type: string
+      class_tracher_id:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      floor_number:
+        type: integer
+      id:
+        type: string
+      number_of_student:
+        type: integer
+      school_id:
+        type: string
+      subjects_id:
+        type: string
+      trachers_id:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - created_by
+    - number_of_student
+    - school_id
+    type: object
   model.ErrorResponse:
     properties:
       error:
@@ -29,12 +69,13 @@ definitions:
       deleted_by:
         type: string
       director_id:
+        example: e9b2a0e3-e86c-4386-8162-ae441ffa28c8
         type: string
       district:
         example: Central
         type: string
       domain:
-        example: vishal
+        example: slrtce
         type: string
       hostel_id:
         type: string
@@ -66,6 +107,85 @@ definitions:
     - district
     - domain
     - pincode
+    - state
+    type: object
+  model.Teacher:
+    properties:
+      active:
+        example: true
+        type: boolean
+      city:
+        example: Metropolis
+        type: string
+      classes_id:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      district:
+        example: Central
+        type: string
+      email:
+        example: vishal
+        type: string
+      first_name:
+        example: John
+        type: string
+      id:
+        type: string
+      joining_date:
+        type: string
+      lane:
+        example: 1234 Elm St
+        type: string
+      last_name:
+        example: Smith
+        type: string
+      middle_name:
+        example: Doe
+        type: string
+      password:
+        example: password
+        type: string
+      pincode:
+        example: 123456
+        type: integer
+      salary:
+        type: integer
+      school_id:
+        type: string
+      skills:
+        type: string
+      state:
+        example: NY
+        type: string
+      subjects_id:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+      village:
+        example: Springfield
+        type: string
+    required:
+    - active
+    - city
+    - created_by
+    - district
+    - email
+    - first_name
+    - last_name
+    - middle_name
+    - password
+    - pincode
+    - school_id
     - state
     type: object
   model.User:
@@ -152,6 +272,189 @@ info:
   title: Managment
   version: "1.0"
 paths:
+  /class/{id}:
+    get:
+      parameters:
+      - description: Class ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Class'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a class by ID
+      tags:
+      - classs
+  /class/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Class'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all classs
+      tags:
+      - classs
+  /class/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Class object
+        in: body
+        name: class
+        required: true
+        schema:
+          $ref: '#/definitions/model.Class'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Class'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a class
+      tags:
+      - classs
+  /class/delete/{id}:
+    delete:
+      parameters:
+      - description: Class ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a class
+      tags:
+      - classs
+  /class/filter:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: school_id
+        in: query
+        name: school_id
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: class_tracher_id
+        in: query
+        name: class_tracher_id
+        type: string
+      - description: trachers_id
+        in: query
+        name: trachers_id
+        type: string
+      - description: subjects_id
+        in: query
+        name: subjects_id
+        type: string
+      - description: floor_number
+        in: query
+        name: floor_number
+        type: string
+      - description: class_name
+        in: query
+        name: class_name
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Class'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all classs based on given filters
+      tags:
+      - classs
+  /class/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Class ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Class object
+        in: body
+        name: class
+        required: true
+        schema:
+          $ref: '#/definitions/model.Class'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Class'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a class
+      tags:
+      - classs
   /school/{id}:
     get:
       parameters:
@@ -355,6 +658,237 @@ paths:
       summary: Update a school
       tags:
       - schools
+  /teacher/{id}:
+    get:
+      parameters:
+      - description: Teacher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Teacher'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a teacher by ID
+      tags:
+      - teachers
+  /teacher/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Teacher'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all teachers
+      tags:
+      - teachers
+  /teacher/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Teacher object
+        in: body
+        name: teacher
+        required: true
+        schema:
+          $ref: '#/definitions/model.Teacher'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Teacher'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a teacher
+      tags:
+      - teachers
+  /teacher/delete/{id}:
+    delete:
+      parameters:
+      - description: Teacher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a teacher
+      tags:
+      - teachers
+  /teacher/filter:
+    get:
+      parameters:
+      - description: email
+        in: query
+        name: email
+        type: string
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: school_id
+        in: query
+        name: school_id
+        type: string
+      - description: password
+        in: query
+        name: password
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: first_name
+        in: query
+        name: first_name
+        type: string
+      - description: middle_name
+        in: query
+        name: middle_name
+        type: string
+      - description: last_name
+        in: query
+        name: last_name
+        type: string
+      - description: salary
+        in: query
+        name: salary
+        type: integer
+      - description: lane
+        in: query
+        name: lane
+        type: string
+      - description: village
+        in: query
+        name: village
+        type: string
+      - description: city
+        in: query
+        name: city
+        type: string
+      - description: district
+        in: query
+        name: district
+        type: string
+      - description: pincode
+        in: query
+        name: pincode
+        type: integer
+      - description: state
+        in: query
+        name: state
+        type: string
+      - description: subjects id
+        in: query
+        name: subjects_id
+        type: string
+      - description: joining_date
+        in: query
+        name: joining_date
+        type: string
+      - description: skills
+        in: query
+        name: skills
+        type: string
+      - description: classes_id
+        in: query
+        name: classes_id
+        type: string
+      - description: teacher_name
+        in: query
+        name: teacher_name
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Teacher'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all teachers based on given filters
+      tags:
+      - teachers
+  /teacher/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Teacher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Teacher object
+        in: body
+        name: teacher
+        required: true
+        schema:
+          $ref: '#/definitions/model.Teacher'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Teacher'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a teacher
+      tags:
+      - teachers
   /user/{id}:
     get:
       parameters:

@@ -49,4 +49,20 @@ type ServerOperations interface {
 	GetSchoolByFilter(ctx *gin.Context)
 	UpdateSchool(c *gin.Context) error
 	DeleteSchool(c *gin.Context) error
+
+	// Class controllers
+	CreateClass(ctx *gin.Context)
+	GetClass(ctx *gin.Context)
+	GetClasss(ctx *gin.Context)
+	GetClassByFilter(ctx *gin.Context)
+	UpdateClass(c *gin.Context) error
+	DeleteClass(c *gin.Context) error
+
+		// Teacher controllers
+		CreateTeacher(ctx *gin.Context)
+		GetTeacher(ctx *gin.Context)
+		GetTeachers(ctx *gin.Context)
+		GetTeacherByFilter(ctx *gin.Context)
+		UpdateTeacher(c *gin.Context) error
+		DeleteTeacher(c *gin.Context) error
 }

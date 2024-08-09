@@ -65,6 +65,8 @@ func (store Postgress) GetSchoolByFilter(filter map[string]interface{}) ([]model
 			"filters key", key+" value = "+fmt.Sprintf("%v", value))
 		query = query.Where(fmt.Sprintf("%s = ?", key), value)
 	}
+	setLimitAndPage(filter, query)
+	setDateRangeFilter(filter, query)
 
 	err := query.Find(&schools).Error
 	if err != nil {
@@ -76,7 +78,6 @@ func (store Postgress) GetSchoolByFilter(filter map[string]interface{}) ([]model
 	util.Log(model.LogLevelInfo, model.StorePackage, model.GetSchoolByFilter, "records of schools from db", schools)
 	return schools, nil
 }
-
 
 func (store Postgress) UpdateSchool(school *model.School) error {
 
