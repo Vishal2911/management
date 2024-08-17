@@ -31,6 +31,12 @@ func (store *Postgress) NewStore() error {
 		model.School{},
 		model.Class{},
 		model.Teacher{},
+		model.Book{},
+		model.Room{},
+		model.Lab{},
+		model.Author{},
+		model.Publisher{},
+		model.Subject{},
 	)
 	if err != nil {
 		util.Log(model.LogLevelError, model.StorePackage, model.NewStore, "error while running automigration", err)
@@ -68,10 +74,57 @@ type SoteOperations interface {
 	DeleteClass(classID string) error
 
 
+	CreateBook(book *model.Book) error
+	GetBooks() ([]model.Book, error)
+	GetBook(uuid.UUID) (model.Book, error)
+	GetBookByFilter(filter map[string]interface{}) ([]model.Book, error)
+	UpdateBook(book *model.Book) error
+	DeleteBook(bookID string) error
+
+
+
+
+	CreateLab(lab *model.Lab) error
+	GetLabs() ([]model.Lab, error)
+	GetLab(uuid.UUID) (model.Lab, error)
+	GetLabByFilter(filter map[string]interface{}) ([]model.Lab, error)
+	UpdateLab(lab *model.Lab) error
+	DeleteLab(labID string) error	
+	
+	
+	CreateAuthor(author *model.Author) error
+	GetAuthors() ([]model.Author, error)
+	GetAuthor(uuid.UUID) (model.Author, error)
+	GetAuthorByFilter(filter map[string]interface{}) ([]model.Author, error)
+	UpdateAuthor(author *model.Author) error
+	DeleteAuthor(authorID string) error
+	
+
+	CreatePublisher(publisher *model.Publisher) error
+	GetPublishers() ([]model.Publisher, error)
+	GetPublisher(uuid.UUID) (model.Publisher, error)
+	GetPublisherByFilter(filter map[string]interface{}) ([]model.Publisher, error)
+	UpdatePublisher(publisher *model.Publisher) error
+	DeletePublisher(publisherID string) error
+
+	CreateRoom(room *model.Room) error
+	GetRooms() ([]model.Room, error)
+	GetRoom(uuid.UUID) (model.Room, error)
+	GetRoomByFilter(filter map[string]interface{}) ([]model.Room, error)
+	UpdateRoom(room *model.Room) error
+	DeleteRoom(roomID string) error
+
 	CreateTeacher(teacher *model.Teacher) error
 	GetTeachers() ([]model.Teacher, error)
 	GetTeacher(uuid.UUID) (model.Teacher, error)
 	GetTeacherByFilter(filter map[string]interface{}) ([]model.Teacher, error)
 	UpdateTeacher(teacher *model.Teacher) error
 	DeleteTeacher(teacherID string) error
+
+	CreateSubject(subject *model.Subject) error
+	GetSubjects() ([]model.Subject, error)
+	GetSubject(uuid.UUID) (model.Subject, error)
+	GetSubjectByFilter(filter map[string]interface{}) ([]model.Subject, error)
+	UpdateSubject(subject *model.Subject) error
+	DeleteSubject(subjectID string) error
 }

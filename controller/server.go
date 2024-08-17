@@ -65,4 +65,56 @@ type ServerOperations interface {
 		GetTeacherByFilter(ctx *gin.Context)
 		UpdateTeacher(c *gin.Context) error
 		DeleteTeacher(c *gin.Context) error
+
+
+
+			// Author controllers
+			CreateAuthor(ctx *gin.Context)
+			GetAuthor(ctx *gin.Context)
+			GetAuthors(ctx *gin.Context)
+			GetAuthorByFilter(ctx *gin.Context)
+			UpdateAuthor(c *gin.Context) error
+			DeleteAuthor(c *gin.Context) error
+
+
+				// Book controllers
+		CreateBook(ctx *gin.Context)
+		GetBook(ctx *gin.Context)
+		GetBooks(ctx *gin.Context)
+		GetBookByFilter(ctx *gin.Context)
+		UpdateBook(c *gin.Context) error
+		DeleteBook(c *gin.Context) error
+
+			// Lab controllers
+			CreateLab(ctx *gin.Context)
+			GetLab(ctx *gin.Context)
+			GetLabs(ctx *gin.Context)
+			GetLabByFilter(ctx *gin.Context)
+			UpdateLab(c *gin.Context) error
+			DeleteLab(c *gin.Context) error
+
+				// Publisher controllers
+		CreatePublisher(ctx *gin.Context)
+		GetPublisher(ctx *gin.Context)
+		GetPublishers(ctx *gin.Context)
+		GetPublisherByFilter(ctx *gin.Context)
+		UpdatePublisher(c *gin.Context) error
+		DeletePublisher(c *gin.Context) error
+
+			// Room controllers
+			CreateRoom(ctx *gin.Context)
+			GetRoom(ctx *gin.Context)
+			GetRooms(ctx *gin.Context)
+			GetRoomByFilter(ctx *gin.Context)
+			UpdateRoom(c *gin.Context) error
+			DeleteRoom(c *gin.Context) error
+
+
+					// Subject controllers
+					CreateSubject(ctx *gin.Context)
+					GetSubject(ctx *gin.Context)
+					GetSubjects(ctx *gin.Context)
+					GetSubjectByFilter(ctx *gin.Context)
+					UpdateSubject(c *gin.Context) error
+					DeleteSubject(c *gin.Context) error
 }

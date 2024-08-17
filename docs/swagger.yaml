@@ -1,5 +1,104 @@
 basePath: /
 definitions:
+  model.Author:
+    properties:
+      active:
+        example: true
+        type: boolean
+      city:
+        example: Metropolis
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      district:
+        example: Central
+        type: string
+      first_name:
+        example: John
+        type: string
+      id:
+        type: string
+      lane:
+        example: 1234 Elm St
+        type: string
+      last_name:
+        example: Smith
+        type: string
+      middle_name:
+        example: Doe
+        type: string
+      pincode:
+        example: 123456
+        type: integer
+      state:
+        example: NY
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+      village:
+        example: Springfield
+        type: string
+    required:
+    - active
+    - city
+    - created_by
+    - district
+    - first_name
+    - last_name
+    - middle_name
+    - pincode
+    - state
+    type: object
+  model.Book:
+    properties:
+      active:
+        example: true
+        type: boolean
+      author:
+        $ref: '#/definitions/model.Author'
+      book_name:
+        example: panchtantra
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      edition_number:
+        example: 2
+        type: integer
+      id:
+        type: string
+      publisher:
+        $ref: '#/definitions/model.Publisher'
+      school_id:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - author
+    - book_name
+    - created_by
+    - edition_number
+    - publisher
+    - school_id
+    type: object
   model.Class:
     properties:
       active:
@@ -22,8 +121,12 @@ definitions:
         type: integer
       id:
         type: string
+      number_of_periods:
+        type: integer
       number_of_student:
         type: integer
+      room_id:
+        type: string
       school_id:
         type: string
       subjects_id:
@@ -37,13 +140,131 @@ definitions:
     required:
     - active
     - created_by
+    - number_of_periods
     - number_of_student
+    - room_id
     - school_id
     type: object
   model.ErrorResponse:
     properties:
       error:
         type: string
+    type: object
+  model.Lab:
+    properties:
+      active:
+        example: true
+        type: boolean
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      equipment_type:
+        type: string
+      id:
+        type: string
+      lab_assistant_id:
+        type: string
+      lab_name:
+        type: string
+      number_of_equipments:
+        type: integer
+      room_id:
+        type: string
+      school_id:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - created_by
+    - lab_name
+    - number_of_equipments
+    - room_id
+    - school_id
+    type: object
+  model.Publisher:
+    properties:
+      active:
+        example: true
+        type: boolean
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      id:
+        type: string
+      name:
+        example: some_publisher
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - created_by
+    - name
+    type: object
+  model.Room:
+    properties:
+      ac:
+        type: boolean
+      active:
+        example: true
+        type: boolean
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      floor_number:
+        type: integer
+      hight:
+        type: integer
+      id:
+        type: string
+      length:
+        type: integer
+      name:
+        type: string
+      room_number:
+        type: integer
+      room_type:
+        type: string
+      school_id:
+        type: string
+      stared:
+        type: boolean
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+      width:
+        type: integer
+    required:
+    - active
+    - created_by
+    - hight
+    - length
+    - school_id
+    - width
     type: object
   model.School:
     properties:
@@ -108,6 +329,38 @@ definitions:
     - domain
     - pincode
     - state
+    type: object
+  model.Subject:
+    properties:
+      active:
+        example: true
+        type: boolean
+      book_id:
+        type: string
+      created_at:
+        type: string
+      created_by:
+        example: vishal
+        type: string
+      deleted_at:
+        type: string
+      deleted_by:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      school_id:
+        type: string
+      updated_at:
+        type: string
+      updated_by:
+        type: string
+    required:
+    - active
+    - book_id
+    - created_by
+    - school_id
     type: object
   model.Teacher:
     properties:
@@ -272,6 +525,372 @@ info:
   title: Managment
   version: "1.0"
 paths:
+  /author/{id}:
+    get:
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Author'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a author by ID
+      tags:
+      - authors
+  /author/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Author'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all authors
+      tags:
+      - authors
+  /author/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Author object
+        in: body
+        name: author
+        required: true
+        schema:
+          $ref: '#/definitions/model.Author'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Author'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a author
+      tags:
+      - authors
+  /author/delete/{id}:
+    delete:
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a author
+      tags:
+      - authors
+  /author/filter:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: first_name
+        in: query
+        name: first_name
+        type: string
+      - description: middle_name
+        in: query
+        name: middle_name
+        type: string
+      - description: last_name
+        in: query
+        name: last_name
+        type: string
+      - description: lane
+        in: query
+        name: lane
+        type: string
+      - description: village
+        in: query
+        name: village
+        type: string
+      - description: city
+        in: query
+        name: city
+        type: string
+      - description: district
+        in: query
+        name: district
+        type: string
+      - description: pincode
+        in: query
+        name: pincode
+        type: integer
+      - description: state
+        in: query
+        name: state
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Author'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all authors based on given filters
+      tags:
+      - authors
+  /author/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Author object
+        in: body
+        name: author
+        required: true
+        schema:
+          $ref: '#/definitions/model.Author'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Author'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a author
+      tags:
+      - authors
+  /book/{id}:
+    get:
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a book by ID
+      tags:
+      - books
+  /book/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Book'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all books
+      tags:
+      - books
+  /book/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Book object
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a book
+      tags:
+      - books
+  /book/delete/{id}:
+    delete:
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a book
+      tags:
+      - books
+  /book/filter:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: school_id
+        in: query
+        name: school_id
+        type: string
+      - description: edition_number
+        in: query
+        name: edition_number
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: book_name
+        in: query
+        name: book_name
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Book'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all books based on given filters
+      tags:
+      - books
+  /book/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Book object
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Book'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a book
+      tags:
+      - books
   /class/{id}:
     get:
       parameters:
@@ -365,6 +984,18 @@ paths:
         in: query
         name: school_id
         type: string
+      - description: room_id
+        in: query
+        name: room_id
+        type: string
+      - description: number_of_student
+        in: query
+        name: number_of_student
+        type: integer
+      - description: number_of_periods
+        in: query
+        name: number_of_periods
+        type: integer
       - description: active
         in: query
         name: active
@@ -455,6 +1086,458 @@ paths:
       summary: Update a class
       tags:
       - classs
+  /lab/{id}:
+    get:
+      parameters:
+      - description: Lab ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Lab'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a lab by ID
+      tags:
+      - labs
+  /lab/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Lab'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all labs
+      tags:
+      - labs
+  /lab/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Lab object
+        in: body
+        name: lab
+        required: true
+        schema:
+          $ref: '#/definitions/model.Lab'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Lab'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a lab
+      tags:
+      - labs
+  /lab/delete/{id}:
+    delete:
+      parameters:
+      - description: Lab ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a lab
+      tags:
+      - labs
+  /lab/filter:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: school_id
+        in: query
+        name: school_id
+        type: string
+      - description: room_id
+        in: query
+        name: room_id
+        type: string
+      - description: number_of_equipments
+        in: query
+        name: number_of_equipments
+        type: integer
+      - description: lab_assistant_id
+        in: query
+        name: lab_assistant_id
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: lab_name
+        in: query
+        name: lab_name
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Lab'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all labs based on given filters
+      tags:
+      - labs
+  /lab/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Lab ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Lab object
+        in: body
+        name: lab
+        required: true
+        schema:
+          $ref: '#/definitions/model.Lab'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Lab'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a lab
+      tags:
+      - labs
+  /publisher/{id}:
+    get:
+      parameters:
+      - description: Publisher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Publisher'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a publisher by ID
+      tags:
+      - publishers
+  /publisher/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Publisher'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all publishers
+      tags:
+      - publishers
+  /publisher/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Publisher object
+        in: body
+        name: publisher
+        required: true
+        schema:
+          $ref: '#/definitions/model.Publisher'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Publisher'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a publisher
+      tags:
+      - publishers
+  /publisher/delete/{id}:
+    delete:
+      parameters:
+      - description: Publisher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a publisher
+      tags:
+      - publishers
+  /publisher/filter:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: name
+        in: query
+        name: name
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Publisher'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all publishers based on given filters
+      tags:
+      - publishers
+  /publisher/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Publisher ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Publisher object
+        in: body
+        name: publisher
+        required: true
+        schema:
+          $ref: '#/definitions/model.Publisher'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Publisher'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a publisher
+      tags:
+      - publishers
+  /room/{id}:
+    get:
+      parameters:
+      - description: Room ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Room'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a room by ID
+      tags:
+      - rooms
+  /room/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Room'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all rooms
+      tags:
+      - rooms
+  /room/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Room object
+        in: body
+        name: room
+        required: true
+        schema:
+          $ref: '#/definitions/model.Room'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Room'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a room
+      tags:
+      - rooms
+  /room/delete/{id}:
+    delete:
+      parameters:
+      - description: Room ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a room
+      tags:
+      - rooms
+  /room/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Room ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Room object
+        in: body
+        name: room
+        required: true
+        schema:
+          $ref: '#/definitions/model.Room'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Room'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a room
+      tags:
+      - rooms
   /school/{id}:
     get:
       parameters:
@@ -658,6 +1741,177 @@ paths:
       summary: Update a school
       tags:
       - schools
+  /subject/{id}:
+    get:
+      parameters:
+      - description: Subject ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Subject'
+      security:
+      - ApiKeyAuth: []
+      summary: Get a subject by ID
+      tags:
+      - subjects
+  /subject/all:
+    get:
+      parameters:
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Subject'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all subjects
+      tags:
+      - subjects
+  /subject/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Subject object
+        in: body
+        name: subject
+        required: true
+        schema:
+          $ref: '#/definitions/model.Subject'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Subject'
+      security:
+      - ApiKeyAuth: []
+      summary: Create a subject
+      tags:
+      - subjects
+  /subject/delete/{id}:
+    delete:
+      parameters:
+      - description: Subject ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses: {}
+      security:
+      - ApiKeyAuth: []
+      summary: Delete a subject
+      tags:
+      - subjects
+  /subject/filter:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        type: string
+      - description: school_id
+        in: query
+        name: school_id
+        type: string
+      - description: book_id
+        in: query
+        name: book_id
+        type: string
+      - description: active
+        in: query
+        name: active
+        type: boolean
+      - description: created_by
+        in: query
+        name: created_by
+        type: string
+      - description: updated_by
+        in: query
+        name: updated_by
+        type: string
+      - description: name
+        in: query
+        name: name
+        type: string
+      - description: start date
+        in: query
+        name: start_date
+        type: string
+      - description: end date
+        in: query
+        name: end_date
+        type: string
+      - description: 'Page number (default: 1)'
+        in: query
+        name: page
+        type: integer
+      - description: 'Number of results per page (default: 10)'
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Subject'
+            type: array
+      security:
+      - ApiKeyAuth: []
+      summary: Get all subjects based on given filters
+      tags:
+      - subjects
+  /subject/update/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Subject ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Subject object
+        in: body
+        name: subject
+        required: true
+        schema:
+          $ref: '#/definitions/model.Subject'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Subject'
+      security:
+      - ApiKeyAuth: []
+      summary: Update a subject
+      tags:
+      - subjects
   /teacher/{id}:
     get:
       parameters:

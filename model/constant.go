@@ -75,6 +75,48 @@ var (
 	GetTeacherByFilter = "get-teacher-by-filter"
 	UpdateTeacher      = "update-teacher"
 	DeleteTeacher      = "delete-teacher"
+
+	CreateAuthor      = "create-author"
+	GetAuthor         = "get-author"
+	GetAuthors        = "get-authors"
+	GetAuthorByFilter = "get-author-by-filter"
+	UpdateAuthor      = "update-author"
+	DeleteAuthor      = "delete-author"
+
+	CreatePublisher      = "create-publisher"
+	GetPublisher         = "get-publisher"
+	GetPublishers        = "get-publishers"
+	GetPublisherByFilter = "get-publisher-by-filter"
+	UpdatePublisher      = "update-publisher"
+	DeletePublisher      = "delete-publisher"
+
+	CreateBook      = "create-book"
+	GetBook         = "get-book"
+	GetBooks        = "get-books"
+	GetBookByFilter = "get-book-by-filter"
+	UpdateBook      = "update-book"
+	DeleteBook      = "delete-book"
+
+	CreateLab      = "create-lab"
+	GetLab         = "get-lab"
+	GetLabs        = "get-labs"
+	GetLabByFilter = "get-lab-by-filter"
+	UpdateLab      = "update-lab"
+	DeleteLab      = "delete-lab"
+
+	CreateRoom      = "create-room"
+	GetRoom         = "get-room"
+	GetRooms        = "get-rooms"
+	GetRoomByFilter = "get-room-by-filter"
+	UpdateRoom      = "update-room"
+	DeleteRoom      = "delete-room"
+
+	CreateSubject      = "create-subject"
+	GetSubject         = "get-subject"
+	GetSubjects        = "get-subjects"
+	GetSubjectByFilter = "get-subject-by-filter"
+	UpdateSubject      = "update-subject"
+	DeleteSubject      = "delete-subject"
 )
 
 // General

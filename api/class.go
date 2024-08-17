@@ -71,6 +71,9 @@ func (api APIRoutes) GetClasss(ctx *gin.Context) {
 // @produce json
 // @param id query string false "id"
 // @param school_id query string false "school_id"
+// @param room_id query string false "room_id"
+// @param number_of_student query int false "number_of_student"
+// @param number_of_periods query int false "number_of_periods"
 // @param active query bool false "active"
 // @param created_by query string false "created_by"
 // @param updated_by query string false "updated_by"

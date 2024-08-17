@@ -1,16 +1,18 @@
 package model
 
 import (
-	"time"
 	"github.com/google/uuid"
+	"time"
 )
 
 // Class struct
 type Class struct {
 	ID              uuid.UUID `gorm:"primarykey" json:"id"`
 	SchoolID        uuid.UUID `binding:"required" json:"school_id"`
+	RoomID          uuid.UUID `binding:"required" json:"room_id"`
 	Active          bool      `json:"active"  binding:"required" example:"true"`
 	NumberOfStudent int       ` binding:"required" json:"number_of_student" `
+	NumberOfPeriods int       ` binding:"required" json:"number_of_periods" `
 	CreatedBy       string    `json:"created_by" binding:"required"  example:"vishal"`
 	DeletedBy       string    `json:"deleted_by" `
 	UpdatedBy       string    `json:"updated_by" `
